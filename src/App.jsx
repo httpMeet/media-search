@@ -1,45 +1,21 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increaseByAmount, increment } from './redux/features/counterSlice'
-
+// import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import CollectionPage from './pages/CollectionPage'
+import Navbar from './components/Navbar'
+import { ToastContainer } from 'react-toastify';
+  
 const App = () => {
-
-  const [num, setNum] = useState(0)
-
-  const dispatch = useDispatch()
-  const count = useSelector((state) => state.counter.value)
-
   return (
-    <div>
-      <h1>{count}</h1>
+    <div className="min-h-screen text-white w-full bg-gray-950">
 
-      <button onClick={() => {
-        dispatch(increment())
-      }}>
-        Increment
-      </button>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/collection' element={<CollectionPage />} />
+      </Routes>
 
-      <button onClick={() => {
-        dispatch(decrement())
-      }}>
-        Decrement
-      </button>
-
-      <input 
-        type="number" 
-        value={num} 
-        onChange={
-          (e) => {
-            if(e.target.value >= 0){
-              setNum(e.target.value);
-            }
-      }} />
-
-      <button onClick={() => {
-        dispatch(increaseByAmount(Number(num)))
-      }}>
-        Increase by Amount
-      </button>
+      <ToastContainer />
 
     </div>
   )
